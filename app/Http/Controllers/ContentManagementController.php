@@ -26,7 +26,31 @@ class ContentManagementController extends Controller
             'hero_description' => 'required|string',
             'about_title' => 'required|string|max:255',
             'about_subtitle' => 'required|string|max:255',
+            'heritage_label' => 'nullable|string|max:255',
+            'heritage_title' => 'nullable|string|max:255',
+            'heritage_description' => 'nullable|string',
+            'heritage_stat1_value' => 'nullable|string|max:255',
+            'heritage_stat1_label' => 'nullable|string|max:255',
+            'heritage_stat2_value' => 'nullable|string|max:255',
+            'heritage_stat2_label' => 'nullable|string|max:255',
+            'heritage_image' => 'nullable|image|max:10240',
+            'footer_description' => 'nullable|string',
+            'footer_boutique_links' => 'nullable|string',
+            'footer_information_links' => 'nullable|string',
+            'footer_address' => 'nullable|string',
+            'footer_phone' => 'nullable|string',
+            'footer_email' => 'nullable|string',
+            'footer_instagram' => 'nullable|string',
+            'footer_facebook' => 'nullable|string',
         ]);
+
+        if ($request->hasFile('heritage_image')) {
+            $path = $request->file('heritage_image')->store('content', 'public');
+            PageContent::updateOrCreate(['key' => 'heritage_image'], ['value' => '/storage/' . $path]);
+        }
+
+        // Remove the file object from validation array before looping to save as text
+        unset($validated['heritage_image']);
 
         foreach ($validated as $key => $value) {
             PageContent::updateOrCreate(['key' => $key], ['value' => $value]);

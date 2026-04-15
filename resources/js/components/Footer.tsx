@@ -1,8 +1,39 @@
 import { Heart, Instagram, Facebook, Mail, Phone, MapPin } from "lucide-react";
 import AppLogo from "./AppLogo";
+import { usePage } from "@inertiajs/react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { content } = usePage().props as any;
+
+  // Helper to parse links from "Label|URL" format
+  const parseLinks = (linksString: string) => {
+    if (!linksString) return [];
+    return linksString.split('\n').map(line => {
+      const [label, url] = line.split('|');
+      return { label: label?.trim(), url: url?.trim() || '#' };
+    }).filter(link => link.label);
+  };
+
+  const boutiqueLinks = parseLinks(content?.footer_boutique_links) || [
+    { label: "New Arrivals", url: "#" },
+    { label: "Best Sellers", url: "#" },
+    { label: "All Collections", url: "#" },
+    { label: "Care Guide", url: "#" }
+  ];
+
+  const informationLinks = parseLinks(content?.footer_information_links) || [
+    { label: "Our Story", url: "#" },
+    { label: "Shipping & Returns", url: "#" },
+    { label: "Privacy Policy", url: "#" },
+    { label: "Terms of Service", url: "#" }
+  ];
+
+  const socialLinks = [
+    { icon: Instagram, label: "Instagram", url: content?.footer_instagram || "#" },
+    { icon: Facebook, label: "Facebook", url: content?.footer_facebook || "#" },
+    { icon: Mail, label: "Email", url: content?.footer_email ? `mailto:${content.footer_email}` : "#" }
+  ];
 
   return (
     <footer className="bg-[#FAF9F6] border-t border-burgundy/5 pt-20 pb-10 px-6 md:px-12">
@@ -12,17 +43,15 @@ const Footer = () => {
           <div className="space-y-8">
             <AppLogo showText={true} className="scale-110 origin-left" />
             <p className="font-sans text-[13px] text-muted-foreground/80 leading-relaxed max-w-xs">
-              Crafting timeless elegance through curated handbag collections. Every stitch tells a story of sophistication and modern femininity.
+              {content?.footer_description || "Crafting timeless elegance through curated handbag collections. Every stitch tells a story of sophistication and modern femininity."}
             </p>
             <div className="flex items-center gap-4">
-              {[
-                { icon: Instagram, label: "Instagram" },
-                { icon: Facebook, label: "Facebook" },
-                { icon: Mail, label: "Email" }
-              ].map((social) => (
+              {socialLinks.map((social) => (
                 <a 
                   key={social.label} 
-                  href="#" 
+                  href={social.url} 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full border border-burgundy/10 flex items-center justify-center text-burgundy/60 hover:bg-burgundy hover:text-white hover:border-burgundy transition-all duration-500"
                   aria-label={social.label}
                 >
@@ -38,10 +67,10 @@ const Footer = () => {
               The Boutique
             </h4>
             <ul className="flex flex-col gap-4">
-              {["New Arrivals", "Best Sellers", "All Collections", "Care Guide"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="font-serif text-[15px] text-foreground/70 hover:text-burgundy hover:pl-2 transition-all duration-300 block">
-                    {link}
+              {boutiqueLinks.map((link, index) => (
+                <li key={index}>
+                  <a href={link.url} className="font-serif text-[15px] text-foreground/70 hover:text-burgundy hover:pl-2 transition-all duration-300 block">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -54,10 +83,10 @@ const Footer = () => {
               Information
             </h4>
             <ul className="flex flex-col gap-4">
-              {["Our Story", "Shipping & Returns", "Privacy Policy", "Terms of Service"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="font-serif text-[15px] text-foreground/70 hover:text-burgundy hover:pl-2 transition-all duration-300 block">
-                    {link}
+              {informationLinks.map((link, index) => (
+                <li key={index}>
+                  <a href={link.url} className="font-serif text-[15px] text-foreground/70 hover:text-burgundy hover:pl-2 transition-all duration-300 block">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -72,17 +101,17 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <MapPin size={16} className="text-burgundy/40 mt-1 flex-shrink-0" />
-                <p className="font-sans text-[13px] text-muted-foreground/80 leading-snug">
-                  Amman Boutique, 5th Circle<br />Amman, Jordan
+                <p className="font-sans text-[13px] text-muted-foreground/80 leading-snug whitespace-pre-line">
+                  {content?.footer_address || "Amman Boutique, 5th Circle\nAmman, Jordan"}
                 </p>
               </div>
               <div className="flex items-center gap-4">
                 <Phone size={16} className="text-burgundy/40 flex-shrink-0" />
-                <p className="font-sans text-[13px] text-muted-foreground/80">+962 79 000 0000</p>
+                <p className="font-sans text-[13px] text-muted-foreground/80">{content?.footer_phone || "+962 79 000 0000"}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Mail size={16} className="text-burgundy/40 flex-shrink-0" />
-                <p className="font-sans text-[13px] text-muted-foreground/80">concierge@lolobrand.com</p>
+                <p className="font-sans text-[13px] text-muted-foreground/80">{content?.footer_email || "concierge@lolobrand.com"}</p>
               </div>
             </div>
           </div>

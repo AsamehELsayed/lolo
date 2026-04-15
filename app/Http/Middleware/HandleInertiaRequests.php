@@ -49,6 +49,7 @@ class HandleInertiaRequests extends Middleware
                 'items' => app(\App\Services\CartService::class)->getContent(),
                 'total' => app(\App\Services\CartService::class)->getTotal(),
             ],
+            'content' => \App\Models\PageContent::all()->pluck('value', 'key'),
         ];
     }
 }

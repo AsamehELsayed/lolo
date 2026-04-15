@@ -1,7 +1,33 @@
 import editorial from "@/assets/luxury-editorial.jpg";
 import { motion } from "framer-motion";
 
-const LuxuryImageSection = () => {
+interface LuxuryImageSectionProps {
+  content?: Record<string, string>;
+}
+
+const LuxuryImageSection = ({ content }: LuxuryImageSectionProps) => {
+  const label = content?.heritage_label || "Our Heritage";
+  const title = content?.heritage_title || "Crafted with Passion & Undeniable Grace";
+  const description = content?.heritage_description || "LOLO BRAND was born from a desire to blend traditional craftsmanship with contemporary feminine aesthetics. Every bag is a testament to the modern woman's journey—sophisticated, resilient, and inherently elegant.";
+  const stat1Value = content?.heritage_stat1_value || "100%";
+  const stat1Label = content?.heritage_stat1_label || "Handmade";
+  const stat2Value = content?.heritage_stat2_value || "2026";
+  const stat2Label = content?.heritage_stat2_label || "Est. Jordan";
+  const image = content?.heritage_image || editorial;
+
+  const renderTitle = (text: string) => {
+    // Basic attempt to keep the italic style if "Passion" is in the title
+    if (text.includes("Passion")) {
+      const parts = text.split("Passion");
+      return (
+        <>
+          {parts[0]} <span className="italic">Passion</span> {parts[1]}
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
     <section
       id="about"
@@ -19,27 +45,27 @@ const LuxuryImageSection = () => {
           >
             <div className="space-y-4">
               <span className="font-sans text-[10px] tracking-[0.5em] uppercase text-burgundy/40 block">
-                Our Heritage
+                {label}
               </span>
               <h2 className="font-serif text-4xl md:text-6xl text-foreground leading-tight tracking-tight">
-                Crafted with <span className="italic">Passion</span> & Undeniable Grace
+                {renderTitle(title)}
               </h2>
             </div>
             
             <p className="font-sans text-sm md:text-base text-muted-foreground/80 leading-relaxed max-w-lg">
-              LOLO BRAND was born from a desire to blend traditional craftsmanship with contemporary feminine aesthetics. Every bag is a testament to the modern woman's journey—sophisticated, resilient, and inherently elegant.
+              {description}
             </p>
 
             <div className="pt-6">
               <div className="flex items-center gap-6">
                  <div className="flex flex-col">
-                    <span className="font-serif text-3xl text-burgundy">100%</span>
-                    <span className="font-sans text-[9px] tracking-[0.2em] uppercase text-muted-foreground">Handmade</span>
+                    <span className="font-serif text-3xl text-burgundy">{stat1Value}</span>
+                    <span className="font-sans text-[9px] tracking-[0.2em] uppercase text-muted-foreground">{stat1Label}</span>
                  </div>
                  <div className="w-px h-10 bg-burgundy/10" />
                  <div className="flex flex-col">
-                    <span className="font-serif text-3xl text-burgundy">2026</span>
-                    <span className="font-sans text-[9px] tracking-[0.2em] uppercase text-muted-foreground">Est. Jordan</span>
+                    <span className="font-serif text-3xl text-burgundy">{stat2Value}</span>
+                    <span className="font-sans text-[9px] tracking-[0.2em] uppercase text-muted-foreground">{stat2Label}</span>
                  </div>
               </div>
             </div>
@@ -54,7 +80,7 @@ const LuxuryImageSection = () => {
             className="relative aspect-[4/5] md:aspect-[3/2] lg:aspect-[4/5] overflow-hidden order-1 lg:order-2 shadow-2xl"
           >
             <img
-              src={editorial}
+              src={image}
               alt="LOLO BRAND luxury editorial"
               loading="lazy"
               className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-1000"

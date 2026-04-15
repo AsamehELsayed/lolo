@@ -33,9 +33,10 @@ interface Product {
 interface IndexProps {
     products: Product[];
     categories: Category[];
+    content: Record<string, string>;
 }
 
-const Index = ({ products, categories }: IndexProps) => {
+const Index = ({ products, categories, content }: IndexProps) => {
     return (
         <>
             <Head title="LOLO BRAND | Luxury Bags, Redefined Elegance" />
@@ -45,7 +46,7 @@ const Index = ({ products, categories }: IndexProps) => {
                 <CategorySection categories={categories} />
                 <ProductGrid products={products} />
                 <FeaturedCollection products={products.filter((p: Product) => p.is_featured)} />
-                <LuxuryImageSection />
+                <LuxuryImageSection content={content} />
                 <Footer />
             </div>
         </>

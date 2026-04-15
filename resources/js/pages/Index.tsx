@@ -6,6 +6,8 @@ import CategorySection from "@/components/CategorySection";
 import FeaturedCollection from "@/components/FeaturedCollection";
 import LuxuryImageSection from "@/components/LuxuryImageSection";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
+
 
 interface Category {
     id: number;
@@ -48,6 +50,8 @@ const Index = ({ products, categories, content }: IndexProps) => {
                 <FeaturedCollection products={products.filter((p: Product) => p.is_featured)} />
                 <LuxuryImageSection content={content} />
                 <Footer />
+                <Toaster position="bottom-right" />
+
             </div>
         </>
     );

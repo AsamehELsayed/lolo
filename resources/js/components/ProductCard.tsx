@@ -1,8 +1,10 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Eye } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { toast } from "@/components/ui/sonner";
+
 
 interface ProductCardProps {
   id: number;
@@ -16,7 +18,32 @@ interface ProductCardProps {
 
 const ProductCard = ({ id, image, name, price, discount_percentage, discounted_price, category }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
   const hasDiscount = discount_percentage && discount_percentage > 0;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isAdding) return;
+    
+    setIsAdding(true);
+    router.post(route('cart.store'), {
+      product_id: id,
+      quantity: 1,
+    }, {
+      preserveScroll: true,
+      onSuccess: () => {
+        toast.success(`${name} added to your bag`);
+        setIsAdding(false);
+      },
+      onError: () => {
+        setIsAdding(false);
+        toast.error("Failed to add piece to bag.");
+      }
+    });
+  };
+
 
   return (
     <motion.div 
@@ -54,9 +81,18 @@ const ProductCard = ({ id, image, name, price, discount_percentage, discounted_p
                 <Link href={route('products.show', id)} className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-burgundy transition-transform duration-300 hover:scale-110 active:scale-95" aria-label="View details">
                   <Eye size={16} />
                 </Link>
-                <button className="w-10 h-10 rounded-full bg-burgundy shadow-lg flex items-center justify-center text-white transition-transform duration-300 hover:scale-110 active:scale-95" aria-label="Quick add to cart">
+                <button 
+                  onClick={handleAddToCart}
+                  disabled={isAdding}
+                  className={cn(
+                    "w-10 h-10 rounded-full shadow-lg flex items-center justify-center text-white transition-all duration-300 hover:scale-110 active:scale-95",
+                    isAdding ? "bg-burgundy/50 cursor-not-allowed" : "bg-burgundy"
+                  )} 
+                  aria-label="Quick add to cart"
+                >
                   <ShoppingBag size={16} />
                 </button>
+
               </div>
             </motion.div>
           )}

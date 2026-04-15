@@ -1,6 +1,8 @@
 import { Head, Link } from "@inertiajs/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
+
 import ProductCard from "@/components/ProductCard";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 import { useState, useMemo } from "react";
@@ -213,7 +215,9 @@ export default function Showroom({ products, categories, initialCategory = "all"
                 </main>
 
                 <Footer />
+                <Toaster position="bottom-right" />
             </div>
+
 
             <style dangerouslySetInnerHTML={{ __html: `
                 .scrollbar-none::-webkit-scrollbar {

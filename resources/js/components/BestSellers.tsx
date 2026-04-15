@@ -11,6 +11,8 @@ interface Product {
     image_path?: string | null;
     front_image_path?: string | null;
     back_image_path?: string | null;
+    discount_percentage?: number;
+    discounted_price?: number | string;
 }
 
 interface BestSellersProps {
@@ -44,6 +46,8 @@ const BestSellers = ({ products }: BestSellersProps) => {
                                 image={p.front_image_path || p.image_path || ''} 
                                 name={p.name} 
                                 price={typeof p.price === 'string' ? parseFloat(p.price) : p.price} 
+                                discount_percentage={p.discount_percentage}
+                                discounted_price={typeof p.discounted_price === 'string' ? parseFloat(p.discounted_price as string) : p.discounted_price}
                                 category={(p as any).category?.name}
                             />
                         ))

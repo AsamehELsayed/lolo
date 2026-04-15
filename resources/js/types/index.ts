@@ -25,7 +25,19 @@ export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    cart: {
+        items: CartItem[];
+        total: number;
+    };
     [key: string]: unknown;
+}
+
+export interface CartItem {
+    id: number;
+    name: string;
+    price: number | string;
+    quantity: number;
+    image: string | null;
 }
 
 export interface User {

@@ -9,6 +9,8 @@ interface Product {
     image_path?: string | null;
     front_image_path?: string | null;
     back_image_path?: string | null;
+    discount_percentage?: number;
+    discounted_price?: number | string;
 }
 
 interface FeaturedCollectionProps {
@@ -17,6 +19,7 @@ interface FeaturedCollectionProps {
 
 const FeaturedCollection = ({ products }: FeaturedCollectionProps) => {
     const ref = useScrollFadeIn();
+    const displayProducts = products.slice(0, 8);
 
     return (
         <section className="bg-cream py-24 md:py-32 overflow-hidden">
@@ -32,14 +35,16 @@ const FeaturedCollection = ({ products }: FeaturedCollectionProps) => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {products && products.length > 0 ? (
-                        products.map((p) => (
+                    {displayProducts && displayProducts.length > 0 ? (
+                        displayProducts.map((p) => (
                             <ProductCard 
                                 key={p.id} 
                                 id={p.id}
                                 image={p.front_image_path || p.image_path || ''} 
                                 name={p.name} 
                                 price={typeof p.price === 'string' ? parseFloat(p.price) : p.price} 
+                                discount_percentage={p.discount_percentage}
+                                discounted_price={typeof p.discounted_price === 'string' ? parseFloat(p.discounted_price as string) : p.discounted_price}
                                 category={(p as any).category?.name}
                             />
                         ))

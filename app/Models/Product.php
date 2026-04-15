@@ -16,7 +16,18 @@ class Product extends Model
         'back_image_path',
         'is_featured',
         'is_bestseller',
+        'discount_percentage',
     ];
+
+    protected $appends = ['discounted_price'];
+
+    public function getDiscountedPriceAttribute()
+    {
+        if ($this->discount_percentage > 0) {
+            return $this->price * (1 - ($this->discount_percentage / 100));
+        }
+        return $this->price;
+    }
 
     public function category()
     {

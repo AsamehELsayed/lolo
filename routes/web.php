@@ -22,6 +22,18 @@ Route::get('/', function () {
 Route::get('/products', [GuestProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [GuestProductController::class, 'show'])->name('products.show');
 
+// Cart Routes
+use App\Http\Controllers\CartController;
+Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+Route::put('/cart/{product}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+// Checkout Routes
+use App\Http\Controllers\CheckoutController;
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
+
 // Dashboard Routes
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/', function () {

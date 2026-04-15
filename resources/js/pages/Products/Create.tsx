@@ -35,6 +35,7 @@ export default function Create({ categories }: Props) {
         images: [] as File[],
         is_featured: false,
         is_bestseller: false,
+        discount_percentage: 0,
     });
 
     const [frontPreview, setFrontPreview] = useState<string | null>(null);
@@ -149,6 +150,23 @@ export default function Create({ categories }: Props) {
                                         placeholder="0.00"
                                     />
                                     {errors.price && <p className="text-xs text-destructive">{errors.price}</p>}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="discount_percentage" className="text-sm font-medium">
+                                        Discount (%)
+                                    </Label>
+                                    <Input
+                                        id="discount_percentage"
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        value={data.discount_percentage}
+                                        onChange={(e) => setData('discount_percentage', e.target.value)}
+                                        className="rounded-lg h-11"
+                                        placeholder="0"
+                                    />
+                                    {errors.discount_percentage && <p className="text-xs text-destructive">{errors.discount_percentage}</p>}
                                 </div>
 
                                 <div className="space-y-2">

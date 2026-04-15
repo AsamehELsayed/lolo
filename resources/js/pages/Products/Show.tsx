@@ -1,4 +1,4 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -30,6 +30,8 @@ interface Product {
     category?: Category;
     images?: ProductImage[];
     front_image_path?: string;
+    discount_percentage?: number;
+    discounted_price?: number | string;
 }
 
 interface ShowProps {
@@ -49,7 +51,20 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
 
     const handleAddToCart = () => {
         setIsAdded(true);
-        setTimeout(() => setIsAdded(false), 2000);
+        router.post(route('cart.store'), {
+            product_id: product.id,
+            quantity: quantity,
+        }, {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success(`${product.name} added to your bag`);
+                setTimeout(() => setIsAdded(false), 2000);
+            },
+            onError: () => {
+                setIsAdded(false);
+                toast.error("Failed to add piece to bag.");
+            }
+        });
     };
 
     const handleShare = async () => {
@@ -132,6 +147,11 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                             className="w-full h-full object-cover"
                                         />
+                                        {product.discount_percentage && product.discount_percentage > 0 && (
+                                            <div className="absolute top-6 left-6 z-10 bg-burgundy text-white text-xs font-bold px-3 py-1.5 tracking-widest uppercase shadow-xl">
+                                                -{product.discount_percentage}% OFF
+                                            </div>
+                                        )}
                                     </AnimatePresence>
 
                                     {/* Navigation Arrows for Mobile Gallery */}
@@ -192,9 +212,22 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                     <h1 className="font-serif text-4xl lg:text-5xl tracking-wide text-foreground mb-4">
                                         {product.name}
                                     </h1>
-                                    <p className="font-serif text-2xl text-foreground/80 mb-8">
-                                        {product.price} JOD
-                                    </p>
+                                    <div className="flex items-baseline gap-4 mb-8">
+                                        {product.discount_percentage && product.discount_percentage > 0 ? (
+                                            <>
+                                                <p className="font-serif text-3xl text-burgundy font-semibold">
+                                                    {product.discounted_price} JOD
+                                                </p>
+                                                <p className="font-serif text-xl text-muted-foreground line-through opacity-60">
+                                                    {product.price} JOD
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <p className="font-serif text-3xl text-foreground/80">
+                                                {product.price} JOD
+                                            </p>
+                                        )}
+                                    </div>
 
                                     <div className="w-10 h-px bg-primary mb-8" />
 
@@ -253,8 +286,8 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                                     <Check size={16} /> Added to Bag
                                                 </span>
                                             ) : (
-                                                <span className="flex items-center gap-2 text-white">
-                                                    Add to Bag – {product.price} JOD
+                                                <span className="flex items-center gap-2 text-white text-[10px] tracking-[0.2em]">
+                                                    Add to Bag – {product.discount_percentage && product.discount_percentage > 0 ? product.discounted_price : product.price} JOD
                                                 </span>
                                             )}
                                         </Button>
@@ -288,6 +321,8 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                         image={p.front_image_path || ''} 
                                         name={p.name} 
                                         price={typeof p.price === 'string' ? parseFloat(p.price) : p.price} 
+                                        discount_percentage={p.discount_percentage}
+                                        discounted_price={typeof p.discounted_price === 'string' ? parseFloat(p.discounted_price) : p.discounted_price}
                                         category={p.category?.name}
                                     />
                                 ))}

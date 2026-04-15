@@ -29,6 +29,7 @@ interface Product {
     back_image_path: string | null;
     is_featured: boolean;
     is_bestseller: boolean;
+    discount_percentage: number;
     category_id: number | null;
     images: ProductImage[];
 }
@@ -57,6 +58,7 @@ export default function Edit({ product, categories }: Props) {
         deleted_images: [] as number[],
         is_featured: product.is_featured,
         is_bestseller: product.is_bestseller,
+        discount_percentage: product.discount_percentage || 0,
     });
 
     const [frontPreview, setFrontPreview] = useState<string | null>(product.front_image_path || product.image_path);
@@ -171,6 +173,20 @@ export default function Edit({ product, categories }: Props) {
                                         className="rounded-lg h-11"
                                     />
                                     {errors.price && <p className="text-xs text-destructive">{errors.price}</p>}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="discount_percentage" className="text-sm font-medium">Discount (%)</Label>
+                                    <Input 
+                                        id="discount_percentage" 
+                                        type="number" 
+                                        min="0"
+                                        max="100"
+                                        value={data.discount_percentage} 
+                                        onChange={(e) => setData('discount_percentage', e.target.value)} 
+                                        className="rounded-lg h-11"
+                                    />
+                                    {errors.discount_percentage && <p className="text-xs text-destructive">{errors.discount_percentage}</p>}
                                 </div>
 
                                 <div className="space-y-2">

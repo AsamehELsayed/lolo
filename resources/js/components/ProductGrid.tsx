@@ -1,10 +1,5 @@
 import ProductCard from "./ProductCard";
-import bag1 from "@/assets/bag1.jpg";
-import bag2 from "@/assets/bag2.jpg";
-import bag3 from "@/assets/bag3.jpg";
-import bag4 from "@/assets/bag4.jpg";
-import bag5 from "@/assets/bag5.jpg";
-import bag6 from "@/assets/bag6.jpg";
+import { Link } from "@inertiajs/react";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 
 interface Product {
@@ -23,6 +18,7 @@ interface ProductGridProps {
 
 const ProductGrid = ({ products }: ProductGridProps) => {
     const ref = useScrollFadeIn();
+    const displayProducts = products.slice(0, 6);
 
     return (
         <section id="collection" className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
@@ -37,9 +33,10 @@ const ProductGrid = ({ products }: ProductGridProps) => {
                 </hgroup>
                 <div className="w-12 h-px bg-primary mx-auto mt-6" />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-                {products && products.length > 0 ? (
-                    products.map((p) => (
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 mb-16">
+                {displayProducts && displayProducts.length > 0 ? (
+                    displayProducts.map((p) => (
                         <ProductCard 
                             key={p.id} 
                             id={p.id}
@@ -55,6 +52,20 @@ const ProductGrid = ({ products }: ProductGridProps) => {
                     </div>
                 )}
             </div>
+
+            {products.length > 6 && (
+                <div className="flex justify-center">
+                    <Link 
+                        href={route('products.index')}
+                        className="group relative px-12 py-4 overflow-hidden"
+                    >
+                        <div className="absolute inset-x-0 bottom-0 h-px bg-foreground/20 group-hover:bg-primary transition-colors duration-500" />
+                        <span className="relative font-sans text-[10px] tracking-[0.4em] uppercase text-foreground group-hover:text-primary transition-colors duration-500">
+                            See More
+                        </span>
+                    </Link>
+                </div>
+            )}
         </section>
     );
 };

@@ -47,6 +47,7 @@ class ProductController extends Controller
             'images.*' => 'nullable|image|max:10240',
             'is_featured' => 'boolean',
             'is_bestseller' => 'boolean',
+            'discount_percentage' => 'nullable|integer|min:0|max:100',
         ]);
 
         if ($request->hasFile('front_image')) {
@@ -126,6 +127,7 @@ class ProductController extends Controller
             'deleted_images.*' => 'integer',
             'is_featured' => 'boolean',
             'is_bestseller' => 'boolean',
+            'discount_percentage' => 'nullable|integer|min:0|max:100',
         ]);
 
         if ($request->hasFile('front_image')) {

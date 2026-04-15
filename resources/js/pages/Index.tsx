@@ -4,7 +4,6 @@ import HeroSection from "@/components/HeroSection";
 import ProductGrid from "@/components/ProductGrid";
 import CategorySection from "@/components/CategorySection";
 import FeaturedCollection from "@/components/FeaturedCollection";
-import BestSellers from "@/components/BestSellers";
 import LuxuryImageSection from "@/components/LuxuryImageSection";
 import Footer from "@/components/Footer";
 
@@ -44,7 +43,6 @@ const Index = ({ products, categories }: IndexProps) => {
                 <CategorySection categories={categories} />
                 <ProductGrid products={products} />
                 <FeaturedCollection products={products.filter((p: Product) => p.is_featured)} />
-                <BestSellers products={products.filter((p: Product) => p.is_bestseller)} />
                 <LuxuryImageSection />
                 <Footer />
             </div>

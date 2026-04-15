@@ -7,6 +7,8 @@ interface Product {
     name: string;
     description?: string;
     price: string | number;
+    discount_percentage?: number;
+    discounted_price?: number;
     image_path?: string | null;
     front_image_path?: string | null;
     back_image_path?: string | null;
@@ -43,6 +45,8 @@ const ProductGrid = ({ products }: ProductGridProps) => {
                             image={p.front_image_path || p.image_path || ''} 
                             name={p.name} 
                             price={typeof p.price === 'string' ? parseFloat(p.price) : p.price} 
+                            discount_percentage={p.discount_percentage}
+                            discounted_price={p.discounted_price}
                             category={(p as any).category?.name}
                         />
                     ))

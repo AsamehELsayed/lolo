@@ -105,7 +105,7 @@ const Footer = () => {
                 <span className="font-sans text-[10px] tracking-[0.2em] text-muted-foreground/60 uppercase">Boutique Online</span>
              </div>
              <p className="font-sans text-[10px] tracking-[0.1em] text-muted-foreground/60 flex items-center gap-2">
-              Made with <Heart size={10} className="text-burgundy/40 fill-burgundy/10" strokeWidth={1.5} /> in Jordan
+              Made with <Heart size={10} className="text-burgundy/40 fill-burgundy/10" strokeWidth={1.5} />by <a href="https://asameh.com" target="_blank" rel="noopener noreferrer" className="hover:text-burgundy transition-colors">asameh.com</a>
             </p>
           </div>
         </div>

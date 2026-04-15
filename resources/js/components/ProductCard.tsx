@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Eye, Heart } from "lucide-react";
+import { ShoppingBag, Eye } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -51,9 +51,6 @@ const ProductCard = ({ id, image, name, price, discount_percentage, discounted_p
               className="absolute inset-0 bg-black/5 flex flex-col items-center justify-center gap-3 pointer-events-none"
             >
               <div className="flex gap-2 pointer-events-auto">
-                <button className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-burgundy transition-transform duration-300 hover:scale-110 active:scale-95" aria-label="Add to wishlist">
-                  <Heart size={16} />
-                </button>
                 <Link href={route('products.show', id)} className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-burgundy transition-transform duration-300 hover:scale-110 active:scale-95" aria-label="View details">
                   <Eye size={16} />
                 </Link>

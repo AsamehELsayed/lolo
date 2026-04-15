@@ -50,7 +50,7 @@ const FeaturedCollection = ({ products }: FeaturedCollectionProps) => {
                         ))
                     ) : (
                         <div className="col-span-full py-12 text-center text-muted-foreground italic opacity-50">
-                            Our seasonal favorites are coming soon.
+                            Our seasonal collections are coming soon.
                         </div>
                     )}
                 </div>

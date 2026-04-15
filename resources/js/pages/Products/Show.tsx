@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Heart, ShoppingBag, Share2, Plus, Minus, Check, ArrowLeft, ArrowRight } from "lucide-react";
+import { ShoppingBag, Share2, Plus, Minus, Check, ArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
@@ -256,14 +256,6 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                                 </button>
                                             </div>
                                             
-                                            <Button 
-                                                variant="outline" 
-                                                size="icon" 
-                                                className="w-12 h-12 rounded-none border-muted/30 hover:bg-red-50 hover:text-red-500 hover:border-red-500 transition-all duration-300"
-                                            >
-                                                <Heart size={18} strokeWidth={1.5} />
-                                            </Button>
-
                                             <Button 
                                                 variant="outline" 
                                                 size="icon" 

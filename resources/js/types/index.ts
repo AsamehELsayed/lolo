@@ -38,6 +38,8 @@ export interface CartItem {
     price: number | string;
     quantity: number;
     image: string | null;
+    discount_percentage?: number;
+    discounted_price?: number;
 }
 
 export interface User {
@@ -56,6 +58,8 @@ export interface Product {
     name: string;
     description: string;
     price: string;
+    discount_percentage: number;
+    discounted_price: number;
     image_path: string | null;
     front_image_path: string | null;
     back_image_path: string | null;

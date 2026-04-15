@@ -10,9 +10,12 @@ interface Product {
     name: string;
     description: string;
     price: string;
+    discount_percentage: number;
+    discounted_price: number;
     image_path: string | null;
     front_image_path: string | null;
     back_image_path: string | null;
+    is_featured: boolean;
 }
 
 interface Props {
@@ -85,9 +88,14 @@ export default function Management({ products }: Props) {
                                 
                                 {/* Status Badges */}
                                 <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                                    {(product as any).is_featured && (
+                                    {product.is_featured && (
                                         <span className="px-3 py-1 bg-burgundy text-white text-[9px] font-bold uppercase tracking-widest rounded-full shadow-lg">
                                             Featured
+                                        </span>
+                                    )}
+                                    {product.discount_percentage > 0 && (
+                                        <span className="px-3 py-1 bg-red-600 text-white text-[9px] font-bold uppercase tracking-widest rounded-full shadow-lg">
+                                            -{product.discount_percentage}%
                                         </span>
                                     )}
                                     <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-[9px] font-bold uppercase tracking-widest text-burgundy rounded-full shadow-sm border border-burgundy/10">
@@ -102,8 +110,15 @@ export default function Management({ products }: Props) {
                                         <h3 className="font-serif text-xl font-medium tracking-tight text-burgundy line-clamp-1 group-hover:text-black transition-colors">{product.name}</h3>
                                     </div>
                                     <p className="text-xs text-muted-foreground/80 line-clamp-2 leading-relaxed h-8 font-light italic">{product.description || 'No description available for this exquisite piece.'}</p>
-                                    <div className="mt-1">
-                                        <span className="text-base font-semibold text-burgundy font-serif tracking-tight">${parseFloat(product.price).toLocaleString()}</span>
+                                    <div className="mt-1 flex items-baseline gap-2">
+                                        {product.discount_percentage > 0 ? (
+                                            <>
+                                                <span className="text-base font-semibold text-burgundy font-serif tracking-tight">${parseFloat(product.discounted_price.toString()).toLocaleString()}</span>
+                                                <span className="text-xs text-muted-foreground line-through opacity-60">${parseFloat(product.price).toLocaleString()}</span>
+                                            </>
+                                        ) : (
+                                            <span className="text-base font-semibold text-burgundy font-serif tracking-tight">${parseFloat(product.price).toLocaleString()}</span>
+                                        )}
                                     </div>
                                 </div>
                                 

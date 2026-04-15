@@ -11,6 +11,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Page Content', href: '/content' },
 ];
 
+interface Props {
     contents: {
         hero_title: string;
         hero_subtitle: string;

@@ -10,7 +10,7 @@ import InputError from '@/components/input-error';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Page Content', href: '/content' },
+    { title: 'Page Content', href: '/dashboard/content' },
 ];
 
 interface Props {
@@ -67,7 +67,7 @@ export default function Edit({ contents }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(route('content.update'), {
+        post(route('dashboard.content.update'), {
             onSuccess: () => toast.success('Page content updated successfully'),
             onError: () => toast.error('Failed to update content. Please check the form for errors.'),
         });
@@ -226,8 +226,10 @@ export default function Edit({ contents }: Props) {
                         </div>
                     </section>
 
-                    <div className="flex justify-end sticky bottom-6 bg-background/80 backdrop-blur-sm p-4 border rounded-full shadow-lg">
-                        <Button type="submit" size="lg" disabled={processing}>Save All Changes</Button>
+                    <div className="flex justify-end sticky bottom-6 z-50 bg-background/80 backdrop-blur-sm p-4 border rounded-full shadow-lg">
+                        <Button type="submit" size="lg" disabled={processing}>
+                            {processing ? 'Saving Changes...' : 'Save All Changes'}
+                        </Button>
                     </div>
                 </form>
             </div>

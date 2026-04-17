@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/sonner';
 import InputError from '@/components/input-error';
+import LinkListEditor from '@/components/LinkListEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -182,13 +183,19 @@ export default function Edit({ contents }: Props) {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <Label htmlFor="footer_boutique_links">Boutique Links (Label|URL per line)</Label>
-                                    <Textarea id="footer_boutique_links" value={data.footer_boutique_links} onChange={(e) => setData('footer_boutique_links', e.target.value)} rows={5} placeholder="New Arrivals|/products?category=new" />
+                                    <Label>Boutique Links</Label>
+                                    <LinkListEditor 
+                                        value={data.footer_boutique_links} 
+                                        onChange={(val) => setData('footer_boutique_links', val)} 
+                                    />
                                     <InputError message={errors.footer_boutique_links} />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="footer_information_links">Information Links (Label|URL per line)</Label>
-                                    <Textarea id="footer_information_links" value={data.footer_information_links} onChange={(e) => setData('footer_information_links', e.target.value)} rows={5} placeholder="Our Story|/about" />
+                                    <Label>Information Links</Label>
+                                    <LinkListEditor 
+                                        value={data.footer_information_links} 
+                                        onChange={(val) => setData('footer_information_links', val)} 
+                                    />
                                     <InputError message={errors.footer_information_links} />
                                 </div>
                             </div>

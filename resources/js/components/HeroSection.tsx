@@ -1,7 +1,15 @@
 import heroBg from "@/assets/hero-bg.png";
 import { motion } from "framer-motion";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  content?: Record<string, string>;
+}
+
+const HeroSection = ({ content }: HeroSectionProps) => {
+  const title = content?.hero_title || "LOLO BRAND";
+  const subtitle = content?.hero_subtitle || "Luxury Bags, Redefined Elegance";
+  const description = content?.hero_description || "Curated for the modern woman who celebrates timeless sophistication and effortless femininity.";
+
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
       {/* Background with subtle zoom effect */}
@@ -32,7 +40,13 @@ const HeroSection = () => {
               The Art of Handcrafting
             </span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-9xl tracking-[0.1em] font-light leading-none">
-              LOLO <span className="italic">BRAND</span>
+              {title.includes(' ') ? (
+                <>
+                  {title.split(' ')[0]} <span className="italic">{title.split(' ').slice(1).join(' ')}</span>
+                </>
+              ) : (
+                title
+              )}
             </h1>
           </motion.div>
 
@@ -43,11 +57,11 @@ const HeroSection = () => {
             className="flex flex-col items-center"
           >
             <p className="font-serif text-lg md:text-2xl tracking-[0.05em] italic text-white/90 max-w-2xl">
-              "Luxury Bags, Redefined Elegance"
+              "{subtitle}"
             </p>
             <div className="h-px w-20 bg-white/20 my-8" />
             <p className="font-sans text-xs md:text-sm tracking-[0.2em] text-white/70 max-w-lg leading-relaxed uppercase">
-              Curated for the modern woman who celebrates timeless sophistication and effortless femininity.
+              {description}
             </p>
           </motion.div>
 

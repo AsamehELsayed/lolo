@@ -44,7 +44,7 @@ const Index = ({ products, categories, content }: IndexProps) => {
             <Head title="LOLO BRAND | Luxury Bags, Redefined Elegance" />
             <div className="min-h-screen bg-background">
                 <Navbar isHome={true} />
-                <HeroSection />
+                <HeroSection content={content} />
                 <CategorySection categories={categories} />
                 <ProductGrid products={products} />
                 <FeaturedCollection products={products.filter((p: Product) => p.is_featured)} />

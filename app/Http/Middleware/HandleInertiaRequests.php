@@ -51,7 +51,6 @@ class HandleInertiaRequests extends Middleware
             ],
             'content' => \App\Models\PageContent::all()->pluck('value', 'key'),
             'locale' => app()->getLocale(),
-            'dir' => app()->getLocale() === 'ar' ? 'rtl' : 'ltr',
         ];
     }
 }

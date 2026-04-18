@@ -202,19 +202,19 @@ export default function Edit({ contents }: Props) {
                     <section className="bg-card p-6 rounded-xl border space-y-6">
                         <h2 className="text-lg font-medium border-b pb-2">SEO Settings (Arabic)</h2>
                         <div className="space-y-4">
-                            <div className="space-y-2 text-right">
+                            <div className="space-y-2">
                                 <Label htmlFor="seo_title_ar">Meta Title (AR)</Label>
-                                <Input id="seo_title_ar" value={data.seo_title_ar} onChange={(e) => setData('seo_title_ar', e.target.value)} className="text-right" dir="rtl" />
+                                <Input id="seo_title_ar" value={data.seo_title_ar} onChange={(e) => setData('seo_title_ar', e.target.value)} />
                                 <InputError message={errors.seo_title_ar} />
                             </div>
-                            <div className="space-y-2 text-right">
+                            <div className="space-y-2">
                                 <Label htmlFor="seo_description_ar">Meta Description (AR)</Label>
-                                <Textarea id="seo_description_ar" value={data.seo_description_ar} onChange={(e) => setData('seo_description_ar', e.target.value)} rows={3} className="text-right" dir="rtl" />
+                                <Textarea id="seo_description_ar" value={data.seo_description_ar} onChange={(e) => setData('seo_description_ar', e.target.value)} rows={3} />
                                 <InputError message={errors.seo_description_ar} />
                             </div>
-                            <div className="space-y-2 text-right">
+                            <div className="space-y-2">
                                 <Label htmlFor="seo_keywords_ar">Meta Keywords (AR)</Label>
-                                <Input id="seo_keywords_ar" value={data.seo_keywords_ar} onChange={(e) => setData('seo_keywords_ar', e.target.value)} className="text-right" dir="rtl" />
+                                <Input id="seo_keywords_ar" value={data.seo_keywords_ar} onChange={(e) => setData('seo_keywords_ar', e.target.value)} />
                                 <InputError message={errors.seo_keywords_ar} />
                             </div>
                         </div>

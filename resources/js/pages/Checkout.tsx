@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { CartItem } from "@/types";
 import { motion } from "framer-motion";
 import { ArrowLeft, CreditCard, Truck, CheckCircle2 } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 
 interface Props {
     cart: CartItem[];
@@ -156,7 +157,7 @@ export default function Checkout({ cart, total }: Props) {
                                             disabled={processing}
                                             className="w-full rounded-none h-16 bg-black hover:bg-black/90 text-white text-[10px] tracking-[0.4em] uppercase font-bold transition-all"
                                         >
-                                            {processing ? "PROCESSING ORDER..." : `CONFIRM ORDER – ${total} JOD`}
+                                            {processing ? "PROCESSING ORDER..." : `CONFIRM ORDER – ${formatPrice(total)} JOD`}
                                         </Button>
                                     </form>
                                 </motion.div>
@@ -181,7 +182,7 @@ export default function Checkout({ cart, total }: Props) {
                                                 <div className="flex-1">
                                                     <div className="flex justify-between items-start mb-1">
                                                         <h4 className="text-sm font-medium">{item.name}</h4>
-                                                        <p className="text-sm font-semibold">{item.price} JOD</p>
+                                                        <p className="text-sm font-semibold">{formatPrice(item.price)} JOD</p>
                                                     </div>
                                                     <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Qty: {item.quantity}</p>
                                                 </div>
@@ -192,7 +193,7 @@ export default function Checkout({ cart, total }: Props) {
                                     <div className="space-y-4">
                                         <div className="flex justify-between text-sm">
                                             <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Subtotal</span>
-                                            <span className="font-medium">{total} JOD</span>
+                                            <span className="font-medium">{formatPrice(total)} JOD</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
                                             <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Shipping</span>
@@ -201,7 +202,7 @@ export default function Checkout({ cart, total }: Props) {
                                         <Separator className="bg-border/20" />
                                         <div className="flex justify-between font-serif text-xl pt-2">
                                             <span className="uppercase tracking-widest">Total</span>
-                                            <span className="font-bold text-2xl">{total} JOD</span>
+                                            <span className="font-bold text-2xl">{formatPrice(total)} JOD</span>
                                         </div>
                                     </div>
 

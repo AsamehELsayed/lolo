@@ -1,4 +1,5 @@
-import { Head, Link, router } from "@inertiajs/react";
+import SEO from "@/components/SEO";
+import { Link, router } from "@inertiajs/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -10,6 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
 import { useScrollFadeIn } from "@/hooks/useScrollFadeIn";
 import { Toaster, toast } from "@/components/ui/sonner";
+import { formatPrice } from "@/lib/utils";
 
 interface ProductImage {
     id: number;
@@ -103,7 +105,11 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
 
     return (
         <>
-            <Head title={`${product.name} | LOLO BRAND`} />
+            <SEO 
+                title={product.name} 
+                description={product.description} 
+                image={product.front_image_path}
+            />
             <div className="min-h-screen bg-background">
                 <Navbar />
 
@@ -216,15 +222,15 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                         {product.discount_percentage && product.discount_percentage > 0 ? (
                                             <>
                                                 <p className="font-serif text-3xl text-burgundy font-semibold">
-                                                    {product.discounted_price} JOD
+                                                    {formatPrice(product.discounted_price)} JOD
                                                 </p>
                                                 <p className="font-serif text-xl text-muted-foreground line-through opacity-60">
-                                                    {product.price} JOD
+                                                    {formatPrice(product.price)} JOD
                                                 </p>
                                             </>
                                         ) : (
                                             <p className="font-serif text-3xl text-foreground/80">
-                                                {product.price} JOD
+                                                {formatPrice(product.price)} JOD
                                             </p>
                                         )}
                                     </div>
@@ -279,7 +285,7 @@ const Show = ({ product, relatedProducts }: ShowProps) => {
                                                 </span>
                                             ) : (
                                                 <span className="flex items-center gap-2 text-white text-[10px] tracking-[0.2em]">
-                                                    Add to Bag – {product.discount_percentage && product.discount_percentage > 0 ? product.discounted_price : product.price} JOD
+                                                    Add to Bag – {product.discount_percentage && product.discount_percentage > 0 ? formatPrice(product.discounted_price) : formatPrice(product.price)} JOD
                                                 </span>
                                             )}
                                         </Button>

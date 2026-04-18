@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 
 const CartSheet = () => {
   const { props } = usePage<SharedData>();
@@ -187,7 +187,7 @@ const CartSheet = () => {
                           </div>
                           {/* Price */}
                           <p className="font-sans text-sm sm:text-base font-light text-burgundy italic whitespace-nowrap">
-                            {item.price} JOD
+                            {formatPrice(item.price)} JOD
                           </p>
                         </div>
                       </div>
@@ -206,7 +206,7 @@ const CartSheet = () => {
                 <div className="flex justify-between text-[10px] tracking-widest uppercase text-burgundy/40">
                   <span>Subtotal</span>
                   <span className="text-burgundy font-medium tracking-normal">
-                    {total} JOD
+                    {formatPrice(total)} JOD
                   </span>
                 </div>
                 <div className="flex justify-between text-[10px] tracking-widest uppercase text-burgundy/40">
@@ -221,7 +221,7 @@ const CartSheet = () => {
                     Total
                   </span>
                   <span className="text-xl sm:text-2xl font-bold text-burgundy tabular-nums">
-                    {total} JOD
+                    {formatPrice(total)} JOD
                   </span>
                 </div>
               </div>

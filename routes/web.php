@@ -9,6 +9,9 @@ use App\Http\Controllers\ContentManagementController;
 use App\Http\Controllers\GuestProductController;
 use App\Models\Product;
 use App\Models\PageContent;
+use App\Http\Controllers\SetLocaleController;
+
+Route::get('/set-locale', SetLocaleController::class)->name('set-locale');
 
 Route::get('/', function () {
     return Inertia::render('Index', [

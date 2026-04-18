@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { Plus, Edit, Trash2, ShoppingBag } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, formatPrice } from '@/lib/utils';
 
 interface Product {
     id: number;
@@ -113,11 +113,11 @@ export default function Management({ products }: Props) {
                                     <div className="mt-1 flex items-baseline gap-2">
                                         {product.discount_percentage > 0 ? (
                                             <>
-                                                <span className="text-base font-semibold text-burgundy font-serif tracking-tight">${parseFloat(product.discounted_price.toString()).toLocaleString()}</span>
-                                                <span className="text-xs text-muted-foreground line-through opacity-60">${parseFloat(product.price).toLocaleString()}</span>
+                                                <span className="text-base font-semibold text-burgundy font-serif tracking-tight">{formatPrice(product.discounted_price)} JOD</span>
+                                                <span className="text-xs text-muted-foreground line-through opacity-60">{formatPrice(product.price)} JOD</span>
                                             </>
                                         ) : (
-                                            <span className="text-base font-semibold text-burgundy font-serif tracking-tight">${parseFloat(product.price).toLocaleString()}</span>
+                                            <span className="text-base font-semibold text-burgundy font-serif tracking-tight">{formatPrice(product.price)} JOD</span>
                                         )}
                                     </div>
                                 </div>

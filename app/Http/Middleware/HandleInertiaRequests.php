@@ -50,6 +50,8 @@ class HandleInertiaRequests extends Middleware
                 'total' => app(\App\Services\CartService::class)->getTotal(),
             ],
             'content' => \App\Models\PageContent::all()->pluck('value', 'key'),
+            'locale' => app()->getLocale(),
+            'dir' => app()->getLocale() === 'ar' ? 'rtl' : 'ltr',
         ];
     }
 }

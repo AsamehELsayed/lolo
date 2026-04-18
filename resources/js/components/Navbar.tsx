@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import { ShoppingBag, Menu, X, ChevronRight } from "lucide-react";
+import { ShoppingBag, Menu, X, ChevronRight, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AppLogo from "./AppLogo";
 import CartSheet from "./CartSheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -32,8 +38,25 @@ const Navbar = ({ isHome = false }: { isHome?: boolean }) => {
   const navLinks = [
     { name: "Collection", href: route("products.index") },
     { name: "Best Sellers", href: "/#bestsellers" },
-    { name: "About", href: "/#about" },
   ];
+
+  const LanguageSwitcher = () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="p-2 rounded-xl text-burgundy/60 hover:text-burgundy hover:bg-burgundy/5 transition-all">
+          <Globe size={20} strokeWidth={1.5} />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="bg-white border-burgundy/10">
+        <DropdownMenuItem asChild>
+          <Link href={route('set-locale', { locale: 'en' })} className="cursor-pointer">English</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={route('set-locale', { locale: 'ar' })} className="cursor-pointer text-right w-full">العربية</Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 
   return (
     <nav
@@ -159,7 +182,8 @@ const Navbar = ({ isHome = false }: { isHome?: boolean }) => {
           </div>
 
           {/* Right: Cart */}
-          <div className="w-10 flex justify-end">
+          <div className="w-10 flex justify-end gap-2 items-center">
+            <LanguageSwitcher />
             <CartSheet />
           </div>
         </div>
@@ -178,6 +202,13 @@ const Navbar = ({ isHome = false }: { isHome?: boolean }) => {
                 <span className="absolute bottom-0 left-0 w-full h-px origin-right transition-transform duration-500 scale-x-0 group-hover:scale-x-100 group-hover:origin-left bg-burgundy" />
               </Link>
             ))}
+            <Link
+              href="/#about"
+              className="relative font-sans text-[10px] tracking-[0.3em] uppercase transition-colors group py-2 text-burgundy/60 hover:text-burgundy"
+            >
+              About
+              <span className="absolute bottom-0 left-0 w-full h-px origin-right transition-transform duration-500 scale-x-0 group-hover:scale-x-100 group-hover:origin-left bg-burgundy" />
+            </Link>
           </div>
 
           {/* Center: Logo */}
@@ -191,14 +222,8 @@ const Navbar = ({ isHome = false }: { isHome?: boolean }) => {
           </div>
 
           {/* Right: Nav Link + Cart */}
-          <div className="flex items-center gap-10 lg:gap-12">
-            <Link
-              href={navLinks[2].href}
-              className="relative font-sans text-[10px] tracking-[0.3em] uppercase transition-colors group py-2 text-burgundy/60 hover:text-burgundy"
-            >
-              {navLinks[2].name}
-              <span className="absolute bottom-0 left-0 w-full h-px origin-right transition-transform duration-500 scale-x-0 group-hover:scale-x-100 group-hover:origin-left bg-burgundy" />
-            </Link>
+          <div className="flex items-center gap-10 lg:gap-12 pl-4">
+             <LanguageSwitcher />
             <div className="text-burgundy">
               <CartSheet />
             </div>

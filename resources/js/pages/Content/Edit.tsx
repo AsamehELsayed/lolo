@@ -64,6 +64,12 @@ export default function Edit({ contents }: Props) {
         footer_email: contents.footer_email || '',
         footer_instagram: contents.footer_instagram || '',
         footer_facebook: contents.footer_facebook || '',
+        seo_title_en: contents.seo_title_en || '',
+        seo_title_ar: contents.seo_title_ar || '',
+        seo_description_en: contents.seo_description_en || '',
+        seo_description_ar: contents.seo_description_ar || '',
+        seo_keywords_en: contents.seo_keywords_en || '',
+        seo_keywords_ar: contents.seo_keywords_ar || '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -169,6 +175,48 @@ export default function Edit({ contents }: Props) {
                                     <img src={contents.heritage_image} alt="Heritage current" className="w-32 h-32 object-cover rounded-lg border" />
                                 </div>
                             )}
+                        </div>
+                    </section>
+
+                    <section className="bg-card p-6 rounded-xl border space-y-6">
+                        <h2 className="text-lg font-medium border-b pb-2">SEO Settings (English)</h2>
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="seo_title_en">Meta Title (EN)</Label>
+                                <Input id="seo_title_en" value={data.seo_title_en} onChange={(e) => setData('seo_title_en', e.target.value)} />
+                                <InputError message={errors.seo_title_en} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="seo_description_en">Meta Description (EN)</Label>
+                                <Textarea id="seo_description_en" value={data.seo_description_en} onChange={(e) => setData('seo_description_en', e.target.value)} rows={3} />
+                                <InputError message={errors.seo_description_en} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="seo_keywords_en">Meta Keywords (EN)</Label>
+                                <Input id="seo_keywords_en" value={data.seo_keywords_en} onChange={(e) => setData('seo_keywords_en', e.target.value)} />
+                                <InputError message={errors.seo_keywords_en} />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="bg-card p-6 rounded-xl border space-y-6">
+                        <h2 className="text-lg font-medium border-b pb-2">SEO Settings (Arabic)</h2>
+                        <div className="space-y-4">
+                            <div className="space-y-2 text-right">
+                                <Label htmlFor="seo_title_ar">Meta Title (AR)</Label>
+                                <Input id="seo_title_ar" value={data.seo_title_ar} onChange={(e) => setData('seo_title_ar', e.target.value)} className="text-right" dir="rtl" />
+                                <InputError message={errors.seo_title_ar} />
+                            </div>
+                            <div className="space-y-2 text-right">
+                                <Label htmlFor="seo_description_ar">Meta Description (AR)</Label>
+                                <Textarea id="seo_description_ar" value={data.seo_description_ar} onChange={(e) => setData('seo_description_ar', e.target.value)} rows={3} className="text-right" dir="rtl" />
+                                <InputError message={errors.seo_description_ar} />
+                            </div>
+                            <div className="space-y-2 text-right">
+                                <Label htmlFor="seo_keywords_ar">Meta Keywords (AR)</Label>
+                                <Input id="seo_keywords_ar" value={data.seo_keywords_ar} onChange={(e) => setData('seo_keywords_ar', e.target.value)} className="text-right" dir="rtl" />
+                                <InputError message={errors.seo_keywords_ar} />
+                            </div>
                         </div>
                     </section>
 

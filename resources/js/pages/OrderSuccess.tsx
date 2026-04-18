@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Check, ShoppingBag, Truck, Calendar, MapPin } from "lucide-react";
+import { formatPrice } from "@/lib/utils";
 
 interface Product {
     name: string;
@@ -117,13 +118,13 @@ export default function OrderSuccess({ order }: Props) {
                                                 <span className="font-medium text-foreground">{item.product.name}</span>
                                                 <span className="text-muted-foreground ml-2">x {item.quantity}</span>
                                             </span>
-                                            <span className="font-semibold">{item.price} JOD</span>
+                                            <span className="font-semibold">{formatPrice(item.price)} JOD</span>
                                         </div>
                                     ))}
                                     <Separator className="bg-border/20 my-4" />
                                     <div className="flex justify-between items-center">
                                         <span className="font-serif text-lg tracking-widest uppercase">Total Amount</span>
-                                        <span className="font-serif text-2xl font-bold">{order.total_amount} JOD</span>
+                                        <span className="font-serif text-2xl font-bold">{formatPrice(order.total_amount)} JOD</span>
                                     </div>
                                 </div>
                             </div>

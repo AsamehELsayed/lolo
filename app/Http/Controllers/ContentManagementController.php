@@ -42,6 +42,12 @@ class ContentManagementController extends Controller
             'footer_email' => 'nullable|string',
             'footer_instagram' => 'nullable|string',
             'footer_facebook' => 'nullable|string',
+            'seo_title_en' => 'nullable|string|max:255',
+            'seo_title_ar' => 'nullable|string|max:255',
+            'seo_description_en' => 'nullable|string',
+            'seo_description_ar' => 'nullable|string',
+            'seo_keywords_en' => 'nullable|string',
+            'seo_keywords_ar' => 'nullable|string',
         ]);
 
         if ($request->hasFile('heritage_image')) {

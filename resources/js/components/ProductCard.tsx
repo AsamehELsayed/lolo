@@ -2,7 +2,7 @@ import { Link, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Eye } from "lucide-react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { toast } from "@/components/ui/sonner";
 
 
@@ -129,15 +129,15 @@ const ProductCard = ({ id, image, name, price, discount_percentage, discounted_p
           {hasDiscount ? (
             <>
               <p className="font-sans text-sm tracking-[0.05em] text-burgundy font-medium">
-                {discounted_price} JOD
+                {formatPrice(discounted_price)} JOD
               </p>
               <p className="font-sans text-[11px] tracking-[0.05em] text-muted-foreground/50 line-through italic">
-                {price} JOD
+                {formatPrice(price)} JOD
               </p>
             </>
           ) : (
             <p className="font-sans text-sm tracking-[0.05em] text-foreground/80 font-light">
-              {price} JOD
+              {formatPrice(price)} JOD
             </p>
           )}
         </div>

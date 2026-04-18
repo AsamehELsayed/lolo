@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import SEO from "@/components/SEO";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProductGrid from "@/components/ProductGrid";
@@ -41,7 +41,7 @@ interface IndexProps {
 const Index = ({ products, categories, content }: IndexProps) => {
     return (
         <>
-            <Head title="LOLO BRAND | Luxury Bags, Redefined Elegance" />
+            <SEO />
             <div className="min-h-screen bg-background">
                 <Navbar isHome={true} />
                 <HeroSection content={content} />

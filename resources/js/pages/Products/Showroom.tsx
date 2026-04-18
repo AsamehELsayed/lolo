@@ -1,4 +1,5 @@
-import { Head, Link } from "@inertiajs/react";
+import SEO from "@/components/SEO";
+import { Link } from "@inertiajs/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
@@ -75,7 +76,7 @@ export default function Showroom({ products, categories, initialCategory = "all"
 
     return (
         <>
-            <Head title="Showroom | LOLO BRAND Luxury Collection" />
+            <SEO title="Showroom" />
             <div className="min-h-screen bg-background">
                 <Navbar />
 

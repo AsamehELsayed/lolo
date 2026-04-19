@@ -39,6 +39,8 @@ class GuestProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->increment('views_count');
+        
         return Inertia::render('Products/Show', [
             'product' => $product->load(['images', 'category']),
             'relatedProducts' => Product::with(['images', 'category'])

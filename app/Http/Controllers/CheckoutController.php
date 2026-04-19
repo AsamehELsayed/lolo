@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PageContent;
 use App\Services\CartService;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderClientMail;
+use App\Mail\OrderAdminMail;
 
 class CheckoutController extends Controller
 {
@@ -76,6 +80,33 @@ class CheckoutController extends Controller
             }
 
             $this->cartService->clear();
+
+            // Handle Email Notifications
+            try {
+                $settings = PageContent::whereIn('key', ['notification_admin_email', 'enable_order_notifications'])
+                    ->pluck('value', 'key');
+
+                $adminEmail = $settings->get('notification_admin_email', 'abdelrahman2003.12.12@gmail.com');
+                
+                // Default to enabled if not explicitly set (empty settings array means first time)
+                $enableVal = $settings->get('enable_order_notifications');
+                $notificationsEnabled = ($enableVal === null) || ($enableVal === '1') || ($enableVal === 'on');
+
+                if ($notificationsEnabled) {
+                    // Send to Client
+                    if ($order->customer_email) {
+                        Mail::to($order->customer_email)->send(new OrderClientMail($order));
+                    }
+
+                    // Send to Admin
+                    if ($adminEmail) {
+                        Mail::to($adminEmail)->send(new OrderAdminMail($order));
+                    }
+                }
+            } catch (\Exception $e) {
+                // Log the error but don't stop the checkout process
+                \Log::error('Order Notification Error: ' . $e->getMessage());
+            }
 
             return redirect()->route('checkout.success', ['order' => $order->id]);
         });

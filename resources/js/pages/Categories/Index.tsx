@@ -42,7 +42,7 @@ export default function Index({ categories }: Props) {
                     </Button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
                     {categories.map((category) => (
                         <div key={category.id} className="group relative flex flex-col bg-card rounded-2xl border border-muted/40 shadow-sm hover:shadow-2xl hover:border-burgundy/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
                             <div className="relative aspect-square overflow-hidden bg-[#fdfbf9]">

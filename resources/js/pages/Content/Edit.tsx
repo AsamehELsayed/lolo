@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/sonner';
 import InputError from '@/components/input-error';
 import LinkListEditor from '@/components/LinkListEditor';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -37,6 +38,8 @@ interface Props {
         footer_email: string;
         footer_instagram: string;
         footer_facebook: string;
+        notification_admin_email: string;
+        enable_order_notifications: string;
     };
 }
 
@@ -70,6 +73,8 @@ export default function Edit({ contents }: Props) {
         seo_description_ar: contents.seo_description_ar || '',
         seo_keywords_en: contents.seo_keywords_en || '',
         seo_keywords_ar: contents.seo_keywords_ar || '',
+        notification_admin_email: contents.notification_admin_email || 'abdelrahman2003.12.12@gmail.com',
+        enable_order_notifications: contents.enable_order_notifications || '1',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -216,6 +221,39 @@ export default function Edit({ contents }: Props) {
                                 <Label htmlFor="seo_keywords_ar">Meta Keywords (AR)</Label>
                                 <Input id="seo_keywords_ar" value={data.seo_keywords_ar} onChange={(e) => setData('seo_keywords_ar', e.target.value)} />
                                 <InputError message={errors.seo_keywords_ar} />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="bg-card p-6 rounded-xl border space-y-6">
+                        <h2 className="text-lg font-medium border-b pb-2">Order Notification Settings</h2>
+                        <div className="space-y-4">
+                            <div className="flex items-center space-x-2">
+                                <Checkbox 
+                                    id="enable_order_notifications" 
+                                    checked={data.enable_order_notifications === '1' || data.enable_order_notifications === 'on'} 
+                                    onCheckedChange={(checked) => setData('enable_order_notifications', checked ? '1' : '0')}
+                                />
+                                <Label htmlFor="enable_order_notifications" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Enable Order Email Notifications
+                                </Label>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                When enabled, emails will be sent to both the customer and the admin upon successful checkout.
+                            </p>
+                            <div className="space-y-2">
+                                <Label htmlFor="notification_admin_email">Admin Notification Email</Label>
+                                <Input 
+                                    id="notification_admin_email" 
+                                    type="email" 
+                                    placeholder="admin@example.com"
+                                    value={data.notification_admin_email} 
+                                    onChange={(e) => setData('notification_admin_email', e.target.value)} 
+                                />
+                                <p className="text-xs text-muted-foreground">
+                                    The email address that will receive new order notifications.
+                                </p>
+                                <InputError message={errors.notification_admin_email} />
                             </div>
                         </div>
                     </section>

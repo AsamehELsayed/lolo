@@ -1,11 +1,7 @@
-// Components
-import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
-
-import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
 import AuthLayout from '@/layouts/auth-layout';
+import { Button } from '@/components/ui/button';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
 
 export default function VerifyEmail({ status }: { status?: string }) {
     const { post, processing } = useForm({});
@@ -17,25 +13,45 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout title="Verify email" description="Please verify your email address by clicking on the link we just emailed to you.">
-            <Head title="Email verification" />
+        <AuthLayout>
+            <Head title="Email Verification" />
 
-            {status === 'verification-link-sent' && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
-                    A new verification link has been sent to the email address you provided during registration.
+            <div className="space-y-6">
+                <div>
+                    <h1 className="font-serif text-3xl font-bold tracking-tight text-burgundy">Verify Email</h1>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+                    </p>
                 </div>
-            )}
 
-            <form onSubmit={submit} className="space-y-6 text-center">
-                <Button disabled={processing} variant="secondary">
-                    {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                    Resend verification email
-                </Button>
+                {status === 'verification-link-sent' && (
+                    <div className="rounded-md bg-green-50 p-4 text-sm font-medium text-green-700 shadow-sm transition-all animate-in fade-in">
+                        A new verification link has been sent to the email address you provided during registration.
+                    </div>
+                )}
 
-                <TextLink href={route('logout')} method="post" className="mx-auto block text-sm">
-                    Log out
-                </TextLink>
-            </form>
+                <form onSubmit={submit} className="space-y-5">
+                    <div className="flex flex-col space-y-4">
+                        <Button 
+                            disabled={processing} 
+                            className="w-full bg-burgundy hover:bg-burgundy/90 text-white font-semibold py-6 shadow-lg shadow-burgundy/20 transition-all active:scale-[0.98]"
+                        >
+                            {processing ? 'Sending...' : 'Resend Verification Email'}
+                        </Button>
+
+                        <div className="flex items-center justify-center">
+                            <Link
+                                href={route('logout')}
+                                method="post"
+                                as="button"
+                                className="text-sm font-bold text-burgundy hover:underline underline-offset-4"
+                            >
+                                Log Out
+                            </Link>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </AuthLayout>
     );
 }

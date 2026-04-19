@@ -37,7 +37,7 @@ const BestSellers = ({ products }: BestSellersProps) => {
                     <div className="w-12 h-px bg-primary mx-auto mt-6" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {products && products.length > 0 ? (
                         products.map((p) => (
                             <ProductCard 

@@ -1,28 +1,13 @@
-import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
-
-import InputError from '@/components/input-error';
-import TextLink from '@/components/text-link';
+import AuthLayout from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/auth-layout';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
 
-interface LoginForm {
-    email: string;
-    password: string;
-    remember: boolean;
-}
-
-interface LoginProps {
-    status?: string;
-    canResetPassword: boolean;
-}
-
-export default function Login({ status, canResetPassword }: LoginProps) {
-    const { data, setData, post, processing, errors, reset } = useForm<LoginForm>({
+export default function Login({ status, canResetPassword }: { status?: string; canResetPassword?: boolean }) {
+    const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
         remember: false,
@@ -30,75 +15,90 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
         post(route('login'), {
             onFinish: () => reset('password'),
         });
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
+        <AuthLayout>
             <Head title="Log in" />
 
-            <form className="flex flex-col gap-6" onSubmit={submit}>
-                <div className="grid gap-6">
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+            <div className="space-y-6">
+                <div>
+                    <h1 className="font-serif text-3xl font-bold tracking-tight text-burgundy">Welcome Back</h1>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        Please enter your details to sign in to your account.
+                    </p>
+                </div>
+
+                {status && (
+                    <div className="rounded-md bg-green-50 p-4 text-sm font-medium text-green-700 shadow-sm transition-all animate-in fade-in">
+                        {status}
+                    </div>
+                )}
+
+                <form onSubmit={submit} className="space-y-5">
+                    <div className="space-y-2">
+                        <Label htmlFor="email" className="text-sm font-semibold uppercase tracking-wider text-burgundy opacity-80">
+                            Email Address
+                        </Label>
                         <Input
                             id="email"
                             type="email"
-                            required
-                            autoFocus
-                            tabIndex={1}
-                            autoComplete="email"
+                            name="email"
                             value={data.email}
+                            className="block w-full border-burgundy/20 bg-cream/30 focus:border-burgundy focus:ring-burgundy"
+                            autoComplete="username"
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+                            placeholder="you@example.com"
                         />
-                        <InputError message={errors.email} />
+                        {errors.email && <p className="text-xs font-medium text-destructive animate-in fade-in slide-in-from-top-1">{errors.email}</p>}
                     </div>
-
-                    <div className="grid gap-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
-                            {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                    Forgot password?
-                                </TextLink>
-                            )}
-                        </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="password" className="text-sm font-semibold uppercase tracking-wider text-burgundy opacity-80">
+                            Password
+                        </Label>
                         <Input
                             id="password"
                             type="password"
-                            required
-                            tabIndex={2}
-                            autoComplete="current-password"
+                            name="password"
                             value={data.password}
+                            className="block w-full border-burgundy/20 bg-cream/30 focus:border-burgundy focus:ring-burgundy"
+                            autoComplete="current-password"
                             onChange={(e) => setData('password', e.target.value)}
-                            placeholder="Password"
+                            placeholder="••••••••"
                         />
-                        <InputError message={errors.password} />
+                        {errors.password && <p className="text-xs font-medium text-destructive animate-in fade-in slide-in-from-top-1">{errors.password}</p>}
                     </div>
 
-                    <div className="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" tabIndex={3} />
-                        <Label htmlFor="remember">Remember me</Label>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox
+                            id="remember"
+                            name="remember"
+                            checked={data.remember}
+                            onCheckedChange={(checked) => setData('remember', checked as boolean)}
+                            className="border-burgundy/40 data-[state=checked]:bg-burgundy dark:border-burgundy"
+                        />
+                        <Label
+                            htmlFor="remember"
+                            className="text-xs font-medium leading-none text-muted-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                            Keep me signed in
+                        </Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Log in
+                    <Button 
+                        disabled={processing} 
+                        className="w-full bg-burgundy hover:bg-burgundy/90 text-white font-semibold py-6 shadow-lg shadow-burgundy/20 transition-all active:scale-[0.98]"
+                    >
+                        {processing ? 'Signing in...' : 'Sign In'}
                     </Button>
-                </div>
+                </form>
 
-                <div className="text-muted-foreground text-center text-sm">
-                    Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
-                        Sign up
-                    </TextLink>
-                </div>
-            </form>
 
-            {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
+            </div>
         </AuthLayout>
     );
 }

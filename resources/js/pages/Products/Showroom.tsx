@@ -167,7 +167,7 @@ export default function Showroom({ products, categories, initialCategory = "all"
                         </div>
 
                         {/* Product Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-12">
                             <AnimatePresence mode="popLayout">
                                 {filteredProducts.map((p) => (
                                     <motion.div

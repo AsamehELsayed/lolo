@@ -24,6 +24,11 @@ const mainNavItems: NavItem[] = [
         icon: Folder,
     },
     {
+        title: 'Orders',
+        url: '/dashboard/orders',
+        icon: ShoppingBag,
+    },
+    {
         title: 'Categories',
         url: '/dashboard/categories',
         icon: Layers,

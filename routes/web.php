@@ -10,6 +10,8 @@ use App\Http\Controllers\GuestProductController;
 use App\Models\Product;
 use App\Models\PageContent;
 use App\Http\Controllers\SetLocaleController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/set-locale', SetLocaleController::class)->name('set-locale');
 
@@ -39,13 +41,12 @@ Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])-
 
 // Dashboard Routes
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::name('dashboard.')->group(function () {
         Route::resource('products', ProductController::class);
         Route::resource('categories', CategoryController::class);
+        Route::resource('orders', OrderController::class);
         
         Route::get('content', [ContentManagementController::class, 'edit'])->name('content.edit');
         Route::put('content', [ContentManagementController::class, 'update'])->name('content.update');

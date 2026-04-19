@@ -48,6 +48,8 @@ class ContentManagementController extends Controller
             'seo_description_ar' => 'nullable|string',
             'seo_keywords_en' => 'nullable|string',
             'seo_keywords_ar' => 'nullable|string',
+            'notification_admin_email' => 'nullable|email|max:255',
+            'enable_order_notifications' => 'nullable|string', // Checkbox usually sends 'on' or '1'
         ]);
 
         if ($request->hasFile('heritage_image')) {

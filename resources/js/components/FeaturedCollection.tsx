@@ -34,7 +34,7 @@ const FeaturedCollection = ({ products }: FeaturedCollectionProps) => {
                     <div className="w-12 h-px bg-primary mx-auto mt-6" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {displayProducts && displayProducts.length > 0 ? (
                         displayProducts.map((p) => (
                             <ProductCard 

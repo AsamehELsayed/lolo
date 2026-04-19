@@ -36,7 +36,7 @@ const ProductGrid = ({ products }: ProductGridProps) => {
                 <div className="w-12 h-px bg-primary mx-auto mt-6" />
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 mb-16">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-x-8 md:gap-y-14 mb-16">
                 {displayProducts && displayProducts.length > 0 ? (
                     displayProducts.map((p) => (
                         <ProductCard 

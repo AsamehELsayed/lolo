@@ -17,6 +17,7 @@ class Product extends Model
         'is_featured',
         'is_bestseller',
         'discount_percentage',
+        'views_count',
     ];
 
     protected $appends = ['discounted_price'];

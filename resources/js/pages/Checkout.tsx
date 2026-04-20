@@ -41,7 +41,7 @@ export default function Checkout({ cart, total }: Props) {
                     <div className="max-w-7xl mx-auto px-6 md:px-12">
                         <div className="flex items-center gap-4 mb-12">
                             <Link href={route('products.index')} className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase">
-                                <ArrowLeft size={14} /> Back to Collection
+                                <ArrowLeft size={14} /> Back to Collection / العودة للمجموعة
                             </Link>
                         </div>
 
@@ -54,7 +54,7 @@ export default function Checkout({ cart, total }: Props) {
                                     transition={{ duration: 0.6 }}
                                 >
                                     <h1 className="font-serif text-3xl md:text-5xl tracking-wide text-foreground mb-8">
-                                        Checkout
+                                        Checkout / إتمام الطلب
                                     </h1>
 
                                     <div className="bg-cream/20 border border-border/10 p-8 mb-12 flex items-center gap-6">
@@ -62,32 +62,32 @@ export default function Checkout({ cart, total }: Props) {
                                             <Truck size={24} />
                                         </div>
                                         <div>
-                                            <h3 className="font-serif text-xl mb-1">Payment & Delivery</h3>
+                                            <h3 className="font-serif text-xl mb-1">Payment & Delivery / الدفع والتوصيل</h3>
                                             <p className="text-sm text-muted-foreground">
-                                                We currently only support <span className="text-foreground font-semibold">Cash on Delivery</span>. Pay for your luxury piece when it reaches your doorstep.
+                                                We currently only support <span className="text-foreground font-semibold">Cash on Delivery / الدفع عند الاستلام</span>. Pay for your luxury piece when it reaches your doorstep. / ادفع ثمن قطعتك الفاخرة عند وصولها إلى باب منزلك.
                                             </p>
                                         </div>
                                     </div>
 
                                     <form onSubmit={handleSubmit} className="space-y-10">
                                         <div className="space-y-6">
-                                            <h2 className="font-serif text-2xl tracking-wide mb-6">Shipping Details</h2>
+                                            <h2 className="font-serif text-2xl tracking-wide mb-6">Shipping Details / تفاصيل الشحن</h2>
                                             
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                 <div className="space-y-2">
-                                                    <Label htmlFor="name" className="text-[10px] tracking-widest uppercase text-muted-foreground">Full Name *</Label>
+                                                    <Label htmlFor="name" className="text-[10px] tracking-widest uppercase text-muted-foreground">name / الاسم *</Label>
                                                     <Input 
                                                         id="name" 
                                                         value={data.name} 
                                                         onChange={e => setData('name', e.target.value)}
                                                         className="rounded-none border-border/40 focus:border-black transition-all bg-transparent h-12"
-                                                        placeholder="MOHAMMAD AL-FAYEZ"
+                                                        placeholder="Name / الاسم"
                                                         required
                                                     />
                                                     {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <Label htmlFor="phone" className="text-[10px] tracking-widest uppercase text-muted-foreground">Phone Number *</Label>
+                                                    <Label htmlFor="phone" className="text-[10px] tracking-widest uppercase text-muted-foreground">Phone Number / رقم الهاتف *</Label>
                                                     <Input 
                                                         id="phone" 
                                                         value={data.phone} 
@@ -101,39 +101,39 @@ export default function Checkout({ cart, total }: Props) {
                                             </div>
 
                                             <div className="space-y-2">
-                                                <Label htmlFor="email" className="text-[10px] tracking-widest uppercase text-muted-foreground">Email Address (Optional)</Label>
+                                                <Label htmlFor="email" className="text-[10px] tracking-widest uppercase text-muted-foreground">Email Address / البريد الإلكتروني (Optional / اختياري)</Label>
                                                 <Input 
                                                     id="email" 
                                                     type="email"
                                                     value={data.email} 
                                                     onChange={e => setData('email', e.target.value)}
                                                     className="rounded-none border-border/40 focus:border-black transition-all bg-transparent h-12"
-                                                    placeholder="NAME@EXAMPLE.COM"
+                                                    placeholder="NAME@EXAMPLE.COM / البريد الإلكتروني"
                                                 />
                                                 {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                                 <div className="md:col-span-2 space-y-2">
-                                                    <Label htmlFor="address" className="text-[10px] tracking-widest uppercase text-muted-foreground">Shipping Address *</Label>
+                                                    <Label htmlFor="address" className="text-[10px] tracking-widest uppercase text-muted-foreground">address / العنوان *</Label>
                                                     <Input 
                                                         id="address" 
                                                         value={data.address} 
                                                         onChange={e => setData('address', e.target.value)}
                                                         className="rounded-none border-border/40 focus:border-black transition-all bg-transparent h-12"
-                                                        placeholder="STREET NAME, BUILDING NO, APARTMENT..."
+                                                        placeholder="STREET NAME, BUILDING NO, APARTMENT... / اسم الشارع، رقم البناء، الشقة..."
                                                         required
                                                     />
                                                     {errors.address && <p className="text-xs text-red-500 mt-1">{errors.address}</p>}
                                                 </div>
                                                 <div className="space-y-2">
-                                                    <Label htmlFor="city" className="text-[10px] tracking-widest uppercase text-muted-foreground">City *</Label>
+                                                    <Label htmlFor="city" className="text-[10px] tracking-widest uppercase text-muted-foreground">City / المدينة *</Label>
                                                     <Input 
                                                         id="city" 
                                                         value={data.city} 
                                                         onChange={e => setData('city', e.target.value)}
                                                         className="rounded-none border-border/40 focus:border-black transition-all bg-transparent h-12"
-                                                        placeholder="AMMAN"
+                                                        placeholder="AMMAN / عمان"
                                                         required
                                                     />
                                                     {errors.city && <p className="text-xs text-red-500 mt-1">{errors.city}</p>}
@@ -141,13 +141,13 @@ export default function Checkout({ cart, total }: Props) {
                                             </div>
 
                                             <div className="space-y-2">
-                                                <Label htmlFor="notes" className="text-[10px] tracking-widest uppercase text-muted-foreground">Order Notes (Optional)</Label>
+                                                <Label htmlFor="notes" className="text-[10px] tracking-widest uppercase text-muted-foreground">Order Notes / ملاحظات الطلب (Optional / اختياري)</Label>
                                                 <Textarea 
                                                     id="notes" 
                                                     value={data.notes} 
                                                     onChange={e => setData('notes', e.target.value)}
                                                     className="rounded-none border-border/40 focus:border-black transition-all bg-transparent min-h-[120px] resize-none"
-                                                    placeholder="ANY SPECIAL INSTRUCTIONS FOR DELIVERY..."
+                                                    placeholder="ANY SPECIAL INSTRUCTIONS FOR DELIVERY... / أي تعليمات خاصة للتوصيل..."
                                                 />
                                             </div>
                                         </div>
@@ -157,7 +157,7 @@ export default function Checkout({ cart, total }: Props) {
                                             disabled={processing}
                                             className="w-full rounded-none h-16 bg-black hover:bg-black/90 text-white text-[10px] tracking-[0.4em] uppercase font-bold transition-all"
                                         >
-                                            {processing ? "PROCESSING ORDER..." : `CONFIRM ORDER – ${formatPrice(total)} JOD`}
+                                            {processing ? "PROCESSING ORDER / جاري معالجة الطلب..." : `CONFIRM ORDER / تأكيد الطلب – ${formatPrice(total)} JOD`}
                                         </Button>
                                     </form>
                                 </motion.div>
@@ -171,7 +171,7 @@ export default function Checkout({ cart, total }: Props) {
                                     transition={{ duration: 0.6, delay: 0.2 }}
                                     className="bg-cream/30 border border-border/10 p-8 lg:sticky lg:top-32"
                                 >
-                                    <h2 className="font-serif text-2xl tracking-wide mb-8">Order Summary</h2>
+                                    <h2 className="font-serif text-2xl tracking-wide mb-8">Order Summary / ملخص الطلب</h2>
                                     
                                     <div className="space-y-6 mb-8 max-h-[400px] overflow-y-auto pr-2 scrollbar-none">
                                         {cart.map((item) => (
@@ -192,16 +192,16 @@ export default function Checkout({ cart, total }: Props) {
 
                                     <div className="space-y-4">
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Subtotal</span>
+                                            <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Subtotal / المجموع الفرعي</span>
                                             <span className="font-medium">{formatPrice(total)} JOD</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Shipping</span>
-                                            <span className="text-green-600 font-medium italic">Complimentary</span>
+                                            <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Shipping / الشحن</span>
+                                            <span className="text-green-600 font-medium italic">Complimentary / مجاني</span>
                                         </div>
                                         <Separator className="bg-border/20" />
                                         <div className="flex justify-between font-serif text-xl pt-2">
-                                            <span className="uppercase tracking-widest">Total</span>
+                                            <span className="uppercase tracking-widest">Total / الإجمالي</span>
                                             <span className="font-bold text-2xl">{formatPrice(total)} JOD</span>
                                         </div>
                                     </div>
@@ -209,11 +209,11 @@ export default function Checkout({ cart, total }: Props) {
                                     <div className="mt-12 pt-12 border-t border-border/10 space-y-4">
                                         <div className="flex items-center gap-3 text-muted-foreground">
                                             <CheckCircle2 size={16} className="text-green-600" />
-                                            <span className="text-[9px] uppercase tracking-widest">Luxury Packaging Included</span>
+                                            <span className="text-[9px] uppercase tracking-widest">Luxury Packaging Included / تغليف فاخر متضمن</span>
                                         </div>
                                         <div className="flex items-center gap-3 text-muted-foreground">
                                             <CheckCircle2 size={16} className="text-green-600" />
-                                            <span className="text-[9px] uppercase tracking-widest">Express Delivery (24-48h)</span>
+                                            <span className="text-[9px] uppercase tracking-widest">Express Delivery (24-48h) / توصيل سريع (٢٤-٤٨ ساعة)</span>
                                         </div>
                                     </div>
                                 </motion.div>

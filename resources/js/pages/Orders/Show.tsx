@@ -108,11 +108,11 @@ export default function Show({ order }: Props) {
                             <div className="mt-8 pt-8 border-t border-[#4B1A24]/10 flex flex-col gap-4">
                                 <div className="flex justify-between items-center text-sm">
                                     <span className="text-neutral-500">Subtotal</span>
-                                    <span className="font-medium text-[#4B1A24]">{formatPrice(parseFloat(order.total_amount))}</span>
+                                    <span className="font-medium text-[#4B1A24]">{formatPrice(parseFloat(order.total_amount) - (parseFloat(order.shipping_fee) || 0))}</span>
                                 </div>
                                 <div className="flex justify-between items-center text-sm">
                                     <span className="text-neutral-500">Shipping</span>
-                                    <span className="font-medium text-emerald-600 uppercase text-[10px] tracking-widest font-bold font-sans">Free Delivery</span>
+                                    <span className="font-medium text-[#4B1A24]">{formatPrice(parseFloat(order.shipping_fee) || 0)}</span>
                                 </div>
                                 <div className="flex justify-between items-center pt-4 border-t border-[#F9E6E9]">
                                     <span className="text-lg font-serif text-[#4B1A24]">Total Amount</span>

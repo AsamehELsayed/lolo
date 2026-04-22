@@ -24,6 +24,7 @@ interface Order {
     customer_address: string;
     customer_city: string;
     total_amount: string | number;
+    shipping_fee: string | number;
     created_at: string;
     items: OrderItem[];
 }
@@ -121,6 +122,14 @@ export default function OrderSuccess({ order }: Props) {
                                             <span className="font-semibold">{formatPrice(item.price)} JOD</span>
                                         </div>
                                     ))}
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Subtotal</span>
+                                        <span className="font-medium">{formatPrice(Number(order.total_amount) - Number(order.shipping_fee || 0))} JOD</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Shipping</span>
+                                        <span className="font-medium">{formatPrice(order.shipping_fee || 0)} JOD</span>
+                                    </div>
                                     <Separator className="bg-border/20 my-4" />
                                     <div className="flex justify-between items-center">
                                         <span className="font-serif text-lg tracking-widest uppercase">Total Amount</span>

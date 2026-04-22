@@ -52,11 +52,13 @@ class CheckoutController extends Controller
         $cart = $this->cartService->getContent();
         $total = $this->cartService->getTotal();
 
+        $shippingFee = 2.00;
+
         if (empty($cart)) {
             return redirect()->route('products.index');
         }
 
-        return DB::transaction(function () use ($request, $cart, $total) {
+        return DB::transaction(function () use ($request, $cart, $total, $shippingFee) {
             $order = Order::create([
                 'user_id' => auth()->check() ? auth()->id() : null,
                 'customer_name' => $request->name,
@@ -64,7 +66,8 @@ class CheckoutController extends Controller
                 'customer_phone' => $request->phone,
                 'customer_address' => $request->address,
                 'customer_city' => $request->city,
-                'total_amount' => $total,
+                'total_amount' => $total + $shippingFee,
+                'shipping_fee' => $shippingFee,
                 'status' => 'pending',
                 'payment_method' => 'cod',
                 'notes' => $request->notes,

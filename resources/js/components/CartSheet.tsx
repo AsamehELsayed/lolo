@@ -211,8 +211,8 @@ const CartSheet = () => {
                 </div>
                 <div className="flex justify-between text-[10px] tracking-widest uppercase text-burgundy/40">
                   <span>Shipping</span>
-                  <span className="text-burgundy/60 font-medium tracking-normal">
-                    Calculated later
+                  <span className="text-burgundy font-medium tracking-normal">
+                    2.00 JOD
                   </span>
                 </div>
                 <Separator className="my-4 bg-burgundy/5" />
@@ -221,7 +221,7 @@ const CartSheet = () => {
                     Total
                   </span>
                   <span className="text-xl sm:text-2xl font-bold text-burgundy tabular-nums">
-                    {formatPrice(total)} JOD
+                    {formatPrice(total + 2)} JOD
                   </span>
                 </div>
               </div>

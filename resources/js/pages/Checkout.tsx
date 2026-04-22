@@ -157,7 +157,7 @@ export default function Checkout({ cart, total }: Props) {
                                             disabled={processing}
                                             className="w-full rounded-none h-16 bg-black hover:bg-black/90 text-white text-[10px] tracking-[0.4em] uppercase font-bold transition-all"
                                         >
-                                            {processing ? "PROCESSING ORDER / جاري معالجة الطلب..." : `CONFIRM ORDER / تأكيد الطلب – ${formatPrice(total)} JOD`}
+                                            {processing ? "PROCESSING ORDER / جاري معالجة الطلب..." : `CONFIRM ORDER / تأكيد الطلب – ${formatPrice(total + 2)} JOD`}
                                         </Button>
                                     </form>
                                 </motion.div>
@@ -197,12 +197,12 @@ export default function Checkout({ cart, total }: Props) {
                                         </div>
                                         <div className="flex justify-between text-sm">
                                             <span className="text-muted-foreground uppercase tracking-widest text-[10px]">Shipping / الشحن</span>
-                                            <span className="text-green-600 font-medium italic">Complimentary / مجاني</span>
+                                            <span className="text-foreground font-medium italic">2.00 JOD</span>
                                         </div>
                                         <Separator className="bg-border/20" />
                                         <div className="flex justify-between font-serif text-xl pt-2">
                                             <span className="uppercase tracking-widest">Total / الإجمالي</span>
-                                            <span className="font-bold text-2xl">{formatPrice(total)} JOD</span>
+                                            <span className="font-bold text-2xl">{formatPrice(total + 2)} JOD</span>
                                         </div>
                                     </div>
 

@@ -14,6 +14,7 @@ class Order extends Model
         'customer_address',
         'customer_city',
         'total_amount',
+        'shipping_fee',
         'status',
         'payment_method',
         'notes',

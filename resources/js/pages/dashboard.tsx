@@ -247,9 +247,6 @@ export default function Dashboard({ stats, charts, topProducts, recentVisits }: 
                                 topProducts.map((product) => (
                                     <div key={product.id} className="flex items-center gap-5 hover:translate-x-1 transition-transform cursor-pointer group">
                                         <div className="size-14 rounded-xl bg-[#FAF7F5] overflow-hidden border border-[#F9E6E9]">
-                                            {product.image_path && (
-                                                <img src={`/storage/${product.image_path}`} className="size-full object-cover group-hover:scale-110 transition-transform duration-500" alt={product.name} />
-                                            )}
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <h4 className="text-[15px] font-medium text-[#4B1A24] truncate">{product.name}</h4>

@@ -89,9 +89,6 @@ export default function Show({ order }: Props) {
                                 {order.items.map((item: any) => (
                                     <div key={item.id} className="flex items-center gap-6 pb-6 border-b border-[#F9E6E9] last:border-0 last:pb-0">
                                         <div className="size-20 rounded-xl bg-[#FAF7F5] border border-[#F9E6E9] overflow-hidden flex-shrink-0">
-                                            {item.product.image_path && (
-                                                <img src={`/storage/${item.product.image_path}`} className="size-full object-cover" alt={item.product.name} />
-                                            )}
                                         </div>
                                         <div className="flex-1">
                                             <h4 className="font-medium text-[#4B1A24]">{item.product.name}</h4>

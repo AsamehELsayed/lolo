@@ -50,6 +50,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         
         Route::get('content', [ContentManagementController::class, 'edit'])->name('content.edit');
         Route::put('content', [ContentManagementController::class, 'update'])->name('content.update');
+        Route::post('content/video-chunk', [ContentManagementController::class, 'uploadVideoChunk'])->name('content.video-chunk');
+        Route::post('content/video-merge', [ContentManagementController::class, 'mergeVideoChunks'])->name('content.video-merge');
     });
 });
 

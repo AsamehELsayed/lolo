@@ -9,6 +9,7 @@ import { toast } from '@/components/ui/sonner';
 import InputError from '@/components/input-error';
 import LinkListEditor from '@/components/LinkListEditor';
 import { Checkbox } from '@/components/ui/checkbox';
+import ChunkedVideoUpload from '@/components/ChunkedVideoUpload';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -30,6 +31,7 @@ interface Props {
         heritage_stat2_value: string;
         heritage_stat2_label: string;
         heritage_image: string;
+        mobile_video_path: string;
         footer_description: string;
         footer_boutique_links: string;
         footer_information_links: string;
@@ -73,6 +75,7 @@ export default function Edit({ contents }: Props) {
         seo_description_ar: contents.seo_description_ar || '',
         seo_keywords_en: contents.seo_keywords_en || '',
         seo_keywords_ar: contents.seo_keywords_ar || '',
+        mobile_video_path: contents.mobile_video_path || '',
         notification_admin_email: contents.notification_admin_email || 'abdelrahman2003.12.12@gmail.com',
         enable_order_notifications: contents.enable_order_notifications || '1',
     });
@@ -182,6 +185,28 @@ export default function Edit({ contents }: Props) {
                             )}
                         </div>
                     </section>
+
+                    <section className="bg-card p-6 rounded-xl border space-y-6">
+                        <div className="flex items-center justify-between border-b pb-2">
+                            <h2 className="text-lg font-medium">Mobile Video Section</h2>
+                            <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase font-bold tracking-tighter">9:16 Ratio Recommended</span>
+                        </div>
+                        <div className="space-y-4">
+                            <p className="text-sm text-muted-foreground">
+                                This video will be displayed in a vertical format immediately after the hero section. 
+                                Ideal for cinematic showcases or product close-ups.
+                            </p>
+                            <ChunkedVideoUpload 
+                                currentVideoPath={data.mobile_video_path}
+                                onUploadSuccess={(path) => {
+                                    setData('mobile_video_path', path);
+                                    toast.success('Video uploaded and saved successfully');
+                                }}
+                            />
+                            <InputError message={errors.mobile_video_path} />
+                        </div>
+                    </section>
+
 
                     <section className="bg-card p-6 rounded-xl border space-y-6">
                         <h2 className="text-lg font-medium border-b pb-2">SEO Settings (English)</h2>

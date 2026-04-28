@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 use App\Models\PageContent;
 use Inertia\Inertia;
@@ -34,6 +36,7 @@ class ContentManagementController extends Controller
             'heritage_stat2_value' => 'nullable|string|max:255',
             'heritage_stat2_label' => 'nullable|string|max:255',
             'heritage_image' => 'nullable|image|max:10240',
+            'mobile_video_path' => 'nullable|string',
             'footer_description' => 'nullable|string',
             'footer_boutique_links' => 'nullable|string',
             'footer_information_links' => 'nullable|string',
@@ -65,5 +68,72 @@ class ContentManagementController extends Controller
         }
 
         return redirect()->back()->with('success', 'Content updated successfully.');
+    }
+
+    public function uploadVideoChunk(Request $request)
+    {
+        $request->validate([
+            'chunk' => 'required|file',
+            'chunkIndex' => 'required|integer',
+            'filename' => 'required|string',
+        ]);
+
+        $chunk = $request->file('chunk');
+        $filename = $request->filename;
+        $chunkIndex = $request->chunkIndex;
+
+        $tempPath = storage_path('app/chunks/' . $filename);
+
+        if (!File::exists($tempPath)) {
+            File::makeDirectory($tempPath, 0777, true);
+        }
+
+        $chunk->move($tempPath, $chunkIndex);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function mergeVideoChunks(Request $request)
+    {
+        $request->validate([
+            'filename' => 'required|string',
+            'totalChunks' => 'required|integer',
+        ]);
+
+        $filename = $request->filename;
+        $totalChunks = $request->totalChunks;
+
+        $tempPath = storage_path('app/chunks/' . $filename);
+        $finalPath = storage_path('app/public/content/videos');
+
+        if (!File::exists($finalPath)) {
+            File::makeDirectory($finalPath, 0777, true);
+        }
+
+        $extension = pathinfo($filename, PATHINFO_EXTENSION);
+        $newFilename = uniqid('video_') . '.' . $extension;
+        $finalFile = $finalPath . '/' . $newFilename;
+
+        $out = fopen($finalFile, 'ab');
+
+        for ($i = 0; $i < $totalChunks; $i++) {
+            $chunkFile = $tempPath . '/' . $i;
+            $in = fopen($chunkFile, 'rb');
+            stream_copy_to_stream($in, $out);
+            fclose($in);
+        }
+
+        fclose($out);
+
+        // Cleanup
+        File::deleteDirectory($tempPath);
+
+        $publicPath = '/storage/content/videos/' . $newFilename;
+        PageContent::updateOrCreate(['key' => 'mobile_video_path'], ['value' => $publicPath]);
+
+        return response()->json([
+            'success' => true,
+            'path' => $publicPath
+        ]);
     }
 }

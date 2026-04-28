@@ -6,6 +6,7 @@ import CategorySection from "@/components/CategorySection";
 import FeaturedCollection from "@/components/FeaturedCollection";
 import LuxuryImageSection from "@/components/LuxuryImageSection";
 import Footer from "@/components/Footer";
+import MobileVideoSection from "@/components/MobileVideoSection";
 import { Toaster } from "@/components/ui/sonner";
 
 
@@ -45,6 +46,7 @@ const Index = ({ products, categories, content }: IndexProps) => {
             <div className="min-h-screen bg-background">
                 <Navbar isHome={true} />
                 <HeroSection content={content} />
+                <MobileVideoSection content={content} />
                 <CategorySection categories={categories} />
                 <ProductGrid products={products} />
                 <FeaturedCollection products={products.filter((p: Product) => p.is_featured)} />
